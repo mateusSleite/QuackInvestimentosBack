@@ -3,12 +3,12 @@
   "builds": [{ "src": "server.js", "use": "@vercel/node" }],
   "routes": [
       { "src": "/", "dest": "/" },
-      { "src": "/user/login", "dest": "/user/login" },
-      { "src": "/user/register", "dest": "/user/register" },
-      { "src": "/investment/create", "dest": "/investment/create" },
-      { "src": "/investment/getall", "dest": "/investment/getall" },
-      { "src": "/investment/getid/:id", "dest": "/investment/getid/:id" },
-      { "src": "/investment/update/:id", "dest": "/investment/update/:id" },
-      { "src": "/investment/delete/:id", "dest": "/investment/delete/:id" }
+      { "src": "/user/login", "dest": "/" },
+      { "src": "/user/register", "dest": "/" },
+      { "src": "/investment/create", "dest": "/" },
+      { "src": "/investment/getall", "dest": "/" },
+      { "src": "/investment/getid/:id", "dest": "/" },
+      { "src": "/investment/update/:id", "dest": "/" },
+      { "src": "/investment/delete/:id", "dest": "/" }
   ]    
 }

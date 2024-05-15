@@ -1,8 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-require('dotenv').config();
+const mongoose = require("mongoose");
+
+require('dotenv').config()
+
 const app = express();
-const connectToDB = require("./startup/db");
+
+async function connectToDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_CONNECT_URI);
+    console.log("Connected to MongoDB Atlas");
+  } catch (error) {
+    console.error("Error connecting to MongoDB Atlas:", error);
+  }
+}
 
 connectToDB();
 
@@ -18,5 +29,6 @@ app.use(
 require("./startup/routes")(app);
 
 const port = process.env.PORT || 8080;
+
 app.listen(port, () => console.log(`Acesse: http://localhost:${port}/`));
 

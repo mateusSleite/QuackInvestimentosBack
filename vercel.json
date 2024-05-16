@@ -9,6 +9,7 @@
       { "src": "/investiment/getall", "dest": "/" },
       { "src": "/investiment/getid/:id", "dest": "/" },
       { "src": "/investiment/update/:id", "dest": "/" },
-      { "src": "/investiment/delete/:id", "dest": "/" }
+      { "src": "/investiment/delete/:id", "dest": "/" },
+      { "src": "/(.*)", "dest": "/index.js" }
   ]    
 }

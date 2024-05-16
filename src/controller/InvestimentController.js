@@ -2,7 +2,7 @@ const Investiment = require("../model/Investiment");
 
 class InvestimentController {
     static async createInvestiment(req, res) {
-        const { userId, nameInvestment, value, startDate, endDate, category, isInput } = req.body
+        const { userId, nameInvestment, value, startDate, endDate, category, classification, isInput } = req.body
         const investiment = new Investiment({
             userId,
             nameInvestment,
@@ -10,6 +10,7 @@ class InvestimentController {
             startDate,
             endDate,
             category,
+            classification,
             isInput,
             extract: null,
             createdAt: Date.now(),
@@ -36,7 +37,7 @@ class InvestimentController {
     }
     
     static async getID(req, res) {
-        const { id } = req.params;
+        const { id } = req.params.id;
         try {
             const investiment = await Investiment.findById(id)
             if (!investiment) return res.status(404).json({ message: "Investimento não encontrado", data: error.message })
@@ -49,31 +50,34 @@ class InvestimentController {
     }
 
     static async updateInvestment(req, res) {
-        const { id } = req.params;
+        const { id } = req.params.id;
         const updateData = req.body;
     
         try {
             const existingInvestment = await Investiment.findById(id);
             if (!existingInvestment) return res.status(404).send({ message: "Investimento não encontrado" });
     
-            if (updateData.nameInvestment !== undefined) {
+            if (updateData.nameInvestment !== undefined) 
                 existingInvestment.nameInvestment = updateData.nameInvestment;
-            }
-            if (updateData.value !== undefined) {
+            
+            if (updateData.value !== undefined) 
                 existingInvestment.value = updateData.value;
-            }
-            if (updateData.startDate !== undefined) {
+            
+            if (updateData.startDate !== undefined) 
                 existingInvestment.startDate = updateData.startDate;
-            }
-            if (updateData.endDate !== undefined) {
+            
+            if (updateData.endDate !== undefined) 
                 existingInvestment.endDate = updateData.endDate;
-            }
-            if (updateData.category !== undefined) {
+            
+            if (updateData.category !== undefined) 
                 existingInvestment.category = updateData.category;
-            }
-            if (updateData.isInput !== undefined) {
+            
+            if (updateData.classification !== undefined)
+                existingInvestment.classification = updateData.classification
+
+            if (updateData.isInput !== undefined) 
                 existingInvestment.isInput = updateData.isInput;
-            }
+    
     
             const updatedInvestment = await existingInvestment.save();
     
@@ -84,7 +88,7 @@ class InvestimentController {
     }
     
     static async deleteInvestiment(req, res) {
-        const { id } = req.params;
+        const { id } = req.params.id;
         try {
             const investiment = await Investiment.findById(id);
             if (!investiment) return res.status(404).send({ message: "Investimneto não encontrado", data: error.message })

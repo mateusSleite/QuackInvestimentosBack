@@ -27,6 +27,10 @@ const Investiment = mongoose.model(
             type: String,
             required: false
         },
+        classification: {
+            type: String,
+            required: false
+        },
         isInput: {
             type: Boolean,
             required: false

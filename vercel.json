@@ -7,9 +7,9 @@
       { "src": "/user/register", "dest": "/" },
       { "src": "/investiment/create", "dest": "/" },
       { "src": "/investiment/getall", "dest": "/" },
-      { "src": "/investiment/getid/:id", "dest": "/" },
-      { "src": "/investiment/update/:id", "dest": "/" },
-      { "src": "/investiment/delete/:id", "dest": "/" },
+      { "src": "/investiment/getid/", "dest": "/" },
+      { "src": "/investiment/update/", "dest": "/" },
+      { "src": "/investiment/delete/", "dest": "/" },
       { "src": "/(.*)", "dest": "/index.js" }
   ]    
 }

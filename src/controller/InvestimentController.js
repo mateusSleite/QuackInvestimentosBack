@@ -37,7 +37,7 @@ class InvestimentController {
     }
     
     static async getID(req, res) {
-        const { id } = req.params;
+        const { id } = req.query;
         try {
             const investiment = await Investiment.findById(id)
             if (!investiment) return res.status(404).json({ message: "Investimento não encontrado", data: error.message })
@@ -50,7 +50,7 @@ class InvestimentController {
     }
 
     static async updateInvestment(req, res) {
-        const { id } = req.params;
+        const { id } = req.query;
         const updateData = req.body;
     
         try {
@@ -88,7 +88,7 @@ class InvestimentController {
     }
     
     static async deleteInvestiment(req, res) {
-        const { id } = req.params;
+        const { id } = req.query;
         try {
             const investiment = await Investiment.findById(id);
             if (!investiment) return res.status(404).send({ message: "Investimneto não encontrado", data: error.message })

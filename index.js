@@ -1,31 +1,31 @@
-// const express = require("express");
-// const cors = require("cors");
-// const mongoose = require("mongoose");
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
-// require('dotenv').config()
+require('dotenv').config()
 
-// const app = express();
-// async function connectToDB() {
-//   try {
-//     await mongoose.connect(process.env.MONGODB_CONNECT_URI);
-//     console.log("Connected to MongoDB Atlasrer");
-//   } catch (error) {
-//     console.error("Error connecting to MongoDB Atlas:", error);
-//   }
-// }
+const app = express();
+async function connectToDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_CONNECT_URI);
+    console.log("Connected to MongoDB Atlasrer");
+  } catch (error) {
+    console.error("Error connecting to MongoDB Atlas:", error);
+  }
+}
 
-// connectToDB();
+connectToDB();
 
-// app.use(
-//   cors({
-//     origin: "*",
-//     methods: ["GET","POST","DELETE", "PUT"],
-//     preflightContinue: false,
-//     optionsSuccessStatus: 204
-//   })
-// );
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET","POST","DELETE", "PUT"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  })
+);
 
-// require("./startup/routes")(app);
+require("./startup/routes")(app);
 
-// const port = process.env.PORT || 8080;
-// app.listen(port, () => console.log(`Acesse: http://localhost:${port}/`));
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`Acesse: http://localhost:${port}/`));

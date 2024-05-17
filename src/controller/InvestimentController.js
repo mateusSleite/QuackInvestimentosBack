@@ -83,7 +83,7 @@ class InvestimentController {
                 existingInvestment.isInput = updateData.isInput;
 
             const updatedInvestment = await existingInvestment.save();
-            res.status(200).send({ message: "Investimento atualizado", updatedInvestment });
+            res.status(201).send({ message: "Investimento atualizado", updatedInvestment });
         } catch (error) {
             return res.status(500).send({ message: "Erro ao atualizar investimento", data: error.message });
         }
@@ -98,7 +98,7 @@ class InvestimentController {
             }
 
             await Investiment.findByIdAndDelete(id);
-            res.status(200).send({ message: "Investimento deletado", investment });
+            res.status(201).send({ message: "Investimento deletado", investment });
         } catch (error) {
             return res.status(500).send({ message: "Erro ao deletar investimento", data: error.message });
         }

@@ -1,11 +1,12 @@
 const Investiment = require("../model/Investiment");
 
 class InvestimentController {
-    static async createInvestiment(req, res) {
-        const { userId, nameInvestment, value, startDate, endDate, category, classification, isInput } = req.body
-        const investiment = new Investiment({
+    static async createInvestment(req, res) {
+        const { userId, nameInvestment, description, value, startDate, endDate, category, classification, isInput } = req.body;
+        const investment = new Investiment({
             userId,
             nameInvestment,
+            description,
             value,
             startDate,
             endDate,
@@ -18,13 +19,13 @@ class InvestimentController {
             removedAt: null,
         });
         try {
-            await Investiment.create(investiment);
-            res.status(201).send({ message: "Investimneto cadastrado" });
+            await Investiment.create(investment);
+            res.status(201).send({ message: "Investimento cadastrado" });
         } catch (error) {
-            return res.status(500).send({ message: "Erro ao cadastrar investimento", data: error.menssage })
+            return res.status(500).send({ message: "Erro ao cadastrar investimento", data: error.message });
         }
-
     }
+    
 
     static async getAll(req, res) {
         try {
@@ -40,7 +41,7 @@ class InvestimentController {
         const { id } = req.query;
         try {
             const investiment = await Investiment.findById(id)
-            if (!investiment) return res.status(404).json({ message: "Investimento não encontrado", data: error.message })
+            if (!investiment) return res.status(404).json({ message: "Investimento não encontrado"})
 
             res.status(200).json(investiment);
         } catch (error) {
@@ -59,6 +60,9 @@ class InvestimentController {
     
             if (updateData.nameInvestment !== undefined) 
                 existingInvestment.nameInvestment = updateData.nameInvestment;
+
+            if (updateData.description !== undefined) 
+                existingInvestment.description = updateData.description;
             
             if (updateData.value !== undefined) 
                 existingInvestment.value = updateData.value;
@@ -87,14 +91,14 @@ class InvestimentController {
         }
     }
     
-    static async deleteInvestiment(req, res) {
+    static async deleteInvestment(req, res) {
         const { id } = req.query;
         try {
             const investiment = await Investiment.findById(id);
-            if (!investiment) return res.status(404).send({ message: "Investimneto não encontrado", data: error.message })
+            if (!investiment) return res.status(404).send({ message: "Investimneto não encontrado" })
 
             await Investiment.findByIdAndDelete(id);
-            res.status(200).send({ message: "Investimneto deletado" });
+            res.status(200).send({ message: "Investimneto deletado", investiment });
 
         } catch (error) {
             return res.status(500).send({ message: "Erro deletar investimento", data: error.menssage })

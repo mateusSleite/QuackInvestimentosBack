@@ -11,6 +11,10 @@ const Investiment = mongoose.model(
             type: String,
             required: false
         },
+        description: {
+            type: String,
+            required: false
+        },
         value: {
             type: Number,
             required: false

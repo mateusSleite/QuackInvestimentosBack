@@ -5,11 +5,10 @@
       { "src": "/", "dest": "/" },
       { "src": "/user/login", "dest": "/" },
       { "src": "/user/register", "dest": "/" },
-      { "src": "/investiment/create", "dest": "/" },
-      { "src": "/investiment/getall", "dest": "/" },
-      { "src": "/investiment/getid/", "dest": "/" },
-      { "src": "/investiment/update/", "dest": "/" },
-      { "src": "/investiment/delete/", "dest": "/" },
-      { "src": "/(.*)", "dest": "/index.js" }
+      { "src": "/investments/create", "dest": "/" },
+      { "src": "/investments/getall", "dest": "/" },
+      { "src": "/investments/getid/", "dest": "/" },
+      { "src": "/investments/update/", "dest": "/" },
+      { "src": "/investments/delete/", "dest": "/" }
   ]    
 }

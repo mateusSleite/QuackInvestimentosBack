@@ -82,9 +82,7 @@ class InvestimentController {
             if (updateData.isInput !== undefined) 
                 existingInvestment.isInput = updateData.isInput;
     
-    
             const updatedInvestment = await existingInvestment.save();
-    
             res.status(200).send({ message: "Investimento atualizado", updatedInvestment });
         } catch (error) {
             return res.status(500).send({ message: "Erro ao atualizar investimento", data: error.message });
@@ -94,17 +92,18 @@ class InvestimentController {
     static async deleteInvestment(req, res) {
         const { id } = req.query;
         try {
-            const investiment = await Investiment.findById(id);
-            if (!investiment) return res.status(404).send({ message: "Investimneto não encontrado" })
-
+            const investment = await Investiment.findById(id);
+            if (!investment) {
+                return res.status(404).send({ message: "Investimento não encontrado" });
+            }
+    
             await Investiment.findByIdAndDelete(id);
-            res.status(200).send({ message: "Investimneto deletado", investiment });
-
+            res.status(200).send({ message: "Investimento deletado", investment });
         } catch (error) {
-            return res.status(500).send({ message: "Erro deletar investimento", data: error.menssage })
+            return res.status(500).send({ message: "Erro ao deletar investimento", data: error.message });
         }
-
     }
+    
 
 }
 

@@ -37,16 +37,21 @@ class InvestimentController {
     //     }
     // }
 
-    static async getAll(req, res) {
+   static async getAll(req, res) {
         try {
             const { userId } = req.query;
-            const investiments = await Investiment.find({ userId: userId }); 
-            res.status(200).json(investiments);
-        }
-        catch (error) {
+    
+            if (!userId) {
+                return res.status(400).send({ message: "UserId is required" });
+            }
+    
+            const investments = await Investment.find({ userId });
+            res.status(200).json(investments);
+        } catch (error) {
             return res.status(500).send({ message: "Erro ao mostrar investimentos", data: error.message });
         }
     }
+
 
 
     static async getID(req, res) {

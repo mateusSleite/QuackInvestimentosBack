@@ -6,7 +6,7 @@
       { "src": "/user/login", "dest": "/" },
       { "src": "/user/register", "dest": "/" },
       { "src": "/investments/create", "dest": "/" },
-      { "src": "/investments/getall", "dest": "/" },
+      { "src": "/investments/getall/", "dest": "/" },
       { "src": "/investments/getid/", "dest": "/" },
       { "src": "/investments/update/", "dest": "/" },
       { "src": "/investments/delete/", "dest": "/" }

@@ -38,24 +38,14 @@ class InvestimentController {
     // }
 
   static async getAll(req, res) {
-    const { id } = req.query;
-
-    // Validação básica do ID
-    if (!id || typeof id !== 'string' || id.trim() === '') {
-        return res.status(400).json({ message: "ID de usuário inválido" });
-    }
-
+    const { userId } = req.query;
     try {
-        const investments = await Investment.find({ userId: id });
-
-        // Verifica se há investimentos encontrados
+        const investments = await Investment.find({ userId: userId });
         if (investments.length === 0) {
             return res.status(404).json({ message: "Nenhum investimento encontrado para este usuário" });
         }
-
         res.status(200).json(investments);
     } catch (error) {
-        // Captura erros do banco de dados
         return res.status(500).json({ message: "Erro ao buscar investimentos", data: error.message });
     }
 }

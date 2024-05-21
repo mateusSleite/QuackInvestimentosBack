@@ -39,8 +39,8 @@ class InvestimentController {
 
     static async getAll(req, res) {
         try {
-            const userId = req.params.userId; // Supondo que o ID do usuário seja passado como parâmetro na URL
-            const investiments = await Investiment.find({ userId: userId }); // Consulta investimentos associados a um usuário específico
+            const { userId } = req.query;
+            const investiments = await Investiment.find({ userId: userId }); 
             res.status(200).json(investiments);
         }
         catch (error) {

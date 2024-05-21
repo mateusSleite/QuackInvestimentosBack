@@ -38,14 +38,10 @@ class InvestimentController {
     // }
 
    static async getAll(req, res) {
-        try {
-            const { userId } = req.query;
-    
-            if (!userId) {
-                return res.status(400).send({ message: "UserId is required" });
-            }
-    
-            const investments = await Investment.find({ userId: userId });
+        const { id } = req.query;
+        try {    
+            const investments = await Investment.find({ userId: id });
+            if (!investments) return res.status(404).json({ message: "Erro ao encontrar os investimentos" })
             res.status(200).json(investments);
         } catch (error) {
             return res.status(500).send({ message: "Erro ao mostrar investimentos", data: error.message });
@@ -59,11 +55,9 @@ class InvestimentController {
         try {
             const investiment = await Investiment.findById(id)
             if (!investiment) return res.status(404).json({ message: "Investimento não encontrado" })
-
             res.status(200).json(investiment);
         } catch (error) {
             return res.status(500).send({ message: "Erro ao encontrar investimento", data: error.menssage })
-
         }
     }
 

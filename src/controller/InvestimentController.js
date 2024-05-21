@@ -37,16 +37,29 @@ class InvestimentController {
     //     }
     // }
 
-   static async getAll(req, res) {
-        const { id } = req.query;
-        try {    
-            const investments = await Investment.find({ userId: id });
-            if (!investments) return res.status(404).json({ message: "Erro ao encontrar os investimentos" })
-            res.status(200).json(investments);
-        } catch (error) {
-            return res.status(500).send({ message: "Erro ao mostrar investimentos", data: error.message });
-        }
+  static async getAll(req, res) {
+    const { id } = req.query;
+
+    // Validação básica do ID
+    if (!id || typeof id !== 'string' || id.trim() === '') {
+        return res.status(400).json({ message: "ID de usuário inválido" });
     }
+
+    try {
+        const investments = await Investment.find({ userId: id });
+
+        // Verifica se há investimentos encontrados
+        if (investments.length === 0) {
+            return res.status(404).json({ message: "Nenhum investimento encontrado para este usuário" });
+        }
+
+        res.status(200).json(investments);
+    } catch (error) {
+        // Captura erros do banco de dados
+        return res.status(500).json({ message: "Erro ao buscar investimentos", data: error.message });
+    }
+}
+
 
 
 

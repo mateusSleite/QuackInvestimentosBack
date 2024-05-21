@@ -45,7 +45,7 @@ class InvestimentController {
                 return res.status(400).send({ message: "UserId is required" });
             }
     
-            const investments = await Investment.find({ userId });
+            const investments = await Investment.find({ userId: userId });
             res.status(200).json(investments);
         } catch (error) {
             return res.status(500).send({ message: "Erro ao mostrar investimentos", data: error.message });

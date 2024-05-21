@@ -27,15 +27,27 @@ class InvestimentController {
     }
 
 
+    // static async getAll(req, res) {
+    //     try {
+    //         const investiments = await Investiment.find();
+    //         res.status(200).json(investiments);
+    //     }
+    //     catch (error) {
+    //         return res.status(500).send({ message: "Erro ao mostrar investimentos", data: error.message });
+    //     }
+    // }
+
     static async getAll(req, res) {
         try {
-            const investiments = await Investiment.find();
+            const userId = req.params.userId; // Supondo que o ID do usuário seja passado como parâmetro na URL
+            const investiments = await Investiment.find({ userId: userId }); // Consulta investimentos associados a um usuário específico
             res.status(200).json(investiments);
         }
         catch (error) {
             return res.status(500).send({ message: "Erro ao mostrar investimentos", data: error.message });
         }
     }
+
 
     static async getID(req, res) {
         const { id } = req.query;

@@ -38,9 +38,9 @@ class InvestimentController {
     // }
 
   static async getAll(req, res) {
-    const { userId } = req.query;
+    const { user } = req.query;
     try {
-        const investments = await Investment.find({ userId: userId });
+        const investments = await Investment.find({ userId: user });
         if (investments.length === 0) {
             return res.status(404).json({ message: "Nenhum investimento encontrado para este usuário" });
         }

@@ -49,10 +49,10 @@ class UserController {
             const user = await User.findOne({ email });
             if (!user) return res.status(404).send({ message: "Email não existente" });
 
-            const passwordUser = await User.findOne({ password })
-            if (!passwordUser) return res.status(401).send({ menssage: "Senhao não existente" })
+            const isPasswordValid = user.password === password;
+            if (!isPasswordValid) return res.status(401).send({ message: "Senha não existente" });
 
-            res.status(200).send({ message: "Login bem-sucedido" });
+            res.status(200).send({ message: "Login bem-sucedido", userId: user._id });
         } catch (error) {
             return res
                 .status(500)

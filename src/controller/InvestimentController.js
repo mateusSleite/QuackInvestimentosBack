@@ -39,16 +39,32 @@ class InvestimentController {
 
   static async getAll(req, res) {
     const { user } = req.query;
+    // Validação básica do ID
+    if (!user || typeof user !== 'string' || user.trim() === '') {
+        console.error("ID de usuário inválido");
+        return res.status(400).json({ message: "ID de usuário inválido" });
+    }
+
+    console.log("Buscando investimentos para o usuário:", user);
+
     try {
         const investments = await Investment.find({ userId: user });
+        
+        console.log("Investimentos encontrados:", investments);
+
+        // Verifica se há investimentos encontrados
         if (investments.length === 0) {
+            console.warn("Nenhum investimento encontrado para este usuário");
             return res.status(404).json({ message: "Nenhum investimento encontrado para este usuário" });
         }
+
         res.status(200).json(investments);
     } catch (error) {
+        console.error("Erro ao buscar investimentos:", error);
         return res.status(500).json({ message: "Erro ao buscar investimentos", data: error.message });
     }
 }
+
 
 
 

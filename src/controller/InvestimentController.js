@@ -1,4 +1,4 @@
-const Investment = require("../model/Investiment");
+const Investiment = require("../model/Investiment");
 
 class InvestimentController {
     static async createInvestment(req, res) {
@@ -19,21 +19,26 @@ class InvestimentController {
             removedAt: null,
         });
         try {
-            await Investment.create(investment);
+            await Investiment.create(investment);
             res.status(201).send({ message: "Investimento cadastrado" });
         } catch (error) {
             return res.status(500).send({ message: "Erro ao cadastrar investimento", data: error.message });
         }
     }
 
+
+  
     static async getAll(req, res) {
         const { user } = req.query;
         if (!user || typeof user !== 'string' || user.trim() === '') {
+            console.error("ID de usuário inválido");
             return res.status(400).json({ message: "ID de usuário inválido" });
         }
 
+        console.log("Buscando investimentos para o usuário:", user);
+
         try {
-            const investments = await Investment.find({ userId: user });
+            const investments = await Investiment.find({ userId: user });
 
             console.log("Investimentos encontrados:", investments);
             if (investments.length === 0) {
@@ -43,7 +48,7 @@ class InvestimentController {
 
             res.status(200).json(investments);
         } catch (error) {
-            console.error("Erro ao buscar investimentos:", error);
+            console.error("Erro ao buscar investimentoss:", error);
             return res.status(500).json({ message: "Erro ao buscar investimentos", data: error.message });
         }
     }
@@ -51,7 +56,7 @@ class InvestimentController {
     static async getID(req, res) {
         const { id } = req.query;
         try {
-            const investiment = await Investment.findById(id)
+            const investiment = await Investiment.findById(id)
             if (!investiment) return res.status(404).json({ message: "Investimento não encontrado" })
             res.status(200).json(investiment);
         } catch (error) {
@@ -64,7 +69,7 @@ class InvestimentController {
         const updateData = req.body;
 
         try {
-            const existingInvestment = await Investment.findById(id);
+            const existingInvestment = await Investiment.findById(id);
             if (!existingInvestment) return res.status(404).send({ message: "Investimento não encontrado" });
 
             if (updateData.nameInvestment !== undefined)
@@ -101,12 +106,12 @@ class InvestimentController {
     static async deleteInvestment(req, res) {
         const { id } = req.query;
         try {
-            const investment = await Investment.findById(id);
+            const investment = await Investiment.findById(id);
             if (!investment) {
                 return res.status(404).send({ message: "Investimento não encontrado" });
             }
 
-            await Investment.findByIdAndDelete(id);
+            await Investiment.findByIdAndDelete(id);
             res.status(201).send({ message: "Investimento deletado", investment });
         } catch (error) {
             return res.status(500).send({ message: "Erro ao deletar investimento", data: error.message });
